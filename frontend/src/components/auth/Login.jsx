@@ -33,10 +33,11 @@ const Login = () => {
             const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
                 headers: {
                     "Content-Type": "application/json"
-                },
-                withCredentials: true,
+                }
             });
             if (res.data.success) {
+                localStorage.setItem("token", res.data.token);
+
                 dispatch(setUser(res.data.user));
                 navigate("/");
                 toast.success(res.data.message);
@@ -66,7 +67,7 @@ const Login = () => {
                             value={input.email}
                             name="email"
                             onChange={changeEventHandler}
-                            placeholder="patel@gmail.com"
+                            placeholder="Enter Your Email"
                         />
                     </div>
 
@@ -77,7 +78,7 @@ const Login = () => {
                             value={input.password}
                             name="password"
                             onChange={changeEventHandler}
-                            placeholder="patel@gmail.com"
+                            placeholder="Enter Your Password"
                         />
                     </div>
                     <div className='flex items-center justify-between'>
