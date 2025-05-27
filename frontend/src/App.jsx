@@ -36,7 +36,7 @@ const appRouter = createBrowserRouter([
 function App() {
   useEffect(() => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    console.log("✅ VITE_BACKEND_URL:", backendUrl);
+  
   }, []);
 
   return (
