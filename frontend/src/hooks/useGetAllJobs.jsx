@@ -17,7 +17,7 @@ const useGetAllJobs = () => {
         return;
       }
 
-      const res = await axios.get("http://localhost:8000/api/v1/job/get", {
+      const res = await axios.get("https://job-portal-x8r2.onrender.com/api/v1/job/get", {
       headers: {
         Authorization: `Bearer ${token}`, // ✅ Correct string interpolation
               },
