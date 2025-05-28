@@ -78,14 +78,14 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                     <form onSubmit={submitHandler}>
                         <div className='grid gap-4 py-4'>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label htmlFor="name" className="text-right">Name</Label>
+                                <Label htmlFor="fullname" className="text-right">Name</Label>
                                 <Input
-                                    id="name"
-                                    name="name"
-                                    type="text"
-                                    value={input.fullname}
-                                    onChange={changeEventHandler}
-                                    className="col-span-3"
+                                id="fullname"
+                                name="fullname"
+                                type="text"
+                                value={input.fullname}
+                                onChange={changeEventHandler}
+                                className="col-span-3"
                                 />
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
@@ -100,13 +100,13 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 />
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label htmlFor="number" className="text-right">Number</Label>
+                                <Label htmlFor="phoneNumber" className="text-right">Number</Label>
                                 <Input
-                                    id="number"
-                                    name="number"
-                                    value={input.phoneNumber}
-                                    onChange={changeEventHandler}
-                                    className="col-span-3"
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                value={input.phoneNumber}
+                                onChange={changeEventHandler}
+                                className="col-span-3"
                                 />
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
