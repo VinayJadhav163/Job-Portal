@@ -1,0 +1,26 @@
+# Exported from Render on 2025-05-28T05:44:31Z
+services:
+- type: web
+  name: Job-Portal
+  runtime: node
+  repo: https://github.com/VinayJadhav163/Job-Portal
+  plan: free
+  envVars:
+  - key: MONGO_URI
+    sync: false
+  - key: SECRET_KEY
+    sync: false
+  - key: API_SECRET
+    sync: false
+  - key: API_KEY
+    sync: false
+  - key: CLOUD_NAME
+    sync: false
+  - key: PORT
+    sync: false
+  region: oregon
+  buildCommand: npm install
+  startCommand: node index.js
+  autoDeployTrigger: commit
+  rootDir: backend
+version: "1"
