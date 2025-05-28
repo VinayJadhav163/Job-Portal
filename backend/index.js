@@ -19,8 +19,6 @@ app.use(cookieParser());
 
 // ✅ Updated CORS configuration
 const allowedOrigins = [
-    "http://localhost:5173",
-    "https://job-portal-vj.vercel.app",
     "https://job-portal-rosy-chi.vercel.app" 
     
 ];
