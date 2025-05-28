@@ -33,9 +33,8 @@ const Login = () => {
             const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
                 headers: {
                     "Content-Type": "application/json",
-                    withCredentials: true,
-
-                }
+                },
+                withCredentials: true // changed
             });
             if (res.data.success) {
                 localStorage.setItem("token", res.data.token);
