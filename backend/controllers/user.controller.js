@@ -104,7 +104,7 @@ export const login = async (req, res) => {
         };
 
         return res.status(200)
-            .cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' })
+            .cookie("token", token, { httpOnly: true, secure: true, sameSite: "None", maxAge: 24 * 60 * 60 * 1000 })
             .json({
                 message: `Welcome back ${user.fullname}`,
                 token, // ✅ Added this line
@@ -120,7 +120,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
     try {
         return res.status(200)
-            .cookie("token", "", { maxAge: 0 })
+            .cookie("token", "", { httpOnly: true, secure: true, sameSite: "None", expires: new Date(0) })
             .json({
                 message: "Logged out successfully.",
                 success: true
