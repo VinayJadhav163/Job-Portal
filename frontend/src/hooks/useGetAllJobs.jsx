@@ -18,10 +18,11 @@ const useGetAllJobs = () => {
       }
 
       const res = await axios.get("https://job-portal-x8r2.onrender.com/api/v1/job/get", {
-      headers: {
-        Authorization: `Bearer ${token}`, // ✅ Correct string interpolation
-              },
-          });
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true // ✅ Ensures cookies/sessions are sent
+      });
 
       if (res.data.success) {
         setJobs(res.data.jobs);
