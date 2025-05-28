@@ -3,10 +3,19 @@ import { cn } from "@/lib/utils"
 
 // Table Component
 const Table = React.forwardRef(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto">
+  <div
+    className={cn(
+      "relative w-full overflow-x-auto", // horizontal scroll on small screens
+      "rounded-md border border-border bg-background", // border & background for table container
+      className
+    )}
+  >
     <table
       ref={ref}
-      className={cn("w-full caption-bottom text-sm", className)}
+      className={cn(
+        "w-full min-w-[600px] caption-bottom text-sm", // min-width ensures table doesn't shrink too small
+        className
+      )}
       {...props}
     />
   </div>
@@ -19,7 +28,7 @@ const TableHeader = React.forwardRef(({ className, ...props }, ref) => (
 ))
 TableHeader.displayName = "TableHeader"
 
-// TableBody Component (updated)
+// TableBody Component
 const TableBody = React.forwardRef(({ className, children, ...props }, ref) => (
   <tbody
     ref={ref}
@@ -35,7 +44,10 @@ TableBody.displayName = "TableBody"
 const TableFooter = React.forwardRef(({ className, ...props }, ref) => (
   <tfoot
     ref={ref}
-    className={cn("border-t bg-muted/50 font-medium [&>tr]:last:border-b-0", className)}
+    className={cn(
+      "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
+      className
+    )}
     {...props}
   />
 ))
@@ -59,7 +71,8 @@ const TableHead = React.forwardRef(({ className, ...props }, ref) => (
   <th
     ref={ref}
     className={cn(
-      "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
+      "whitespace-nowrap h-12 px-4 text-left align-middle font-medium text-muted-foreground",
+      "[&:has([role=checkbox])]:pr-0",
       className
     )}
     {...props}
@@ -71,7 +84,11 @@ TableHead.displayName = "TableHead"
 const TableCell = React.forwardRef(({ className, children, ...props }, ref) => (
   <td
     ref={ref}
-    className={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className)}
+    className={cn(
+      "whitespace-normal p-4 align-middle",
+      "[&:has([role=checkbox])]:pr-0",
+      className
+    )}
     {...props}
   >
     {children}
@@ -83,7 +100,7 @@ TableCell.displayName = "TableCell"
 const TableCaption = React.forwardRef(({ className, ...props }, ref) => (
   <caption
     ref={ref}
-    className={cn("mt-4 text-sm text-muted-foreground", className)}
+    className={cn("mt-4 text-sm text-muted-foreground text-center", className)}
     {...props}
   />
 ))

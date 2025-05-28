@@ -20,10 +20,10 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        default: "h-10 px-4 py-2 text-sm sm:h-11 sm:px-5 sm:py-3 md:h-12 md:px-6 md:text-base",
+        sm: "h-8 px-2 py-1 text-xs sm:h-9 sm:px-3 sm:py-1.5 sm:text-sm",
+        lg: "h-12 px-8 py-3 text-base sm:h-14 sm:px-10 sm:py-4 md:h-16 md:px-12 md:text-lg",
+        icon: "h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14",
       },
     },
     defaultVariants: {
@@ -36,12 +36,13 @@ const buttonVariants = cva(
 const Button = React.forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
   const Comp = asChild ? Slot : "button"
   return (
-    (<Comp
+    <Comp
       className={cn(buttonVariants({ variant, size, className }))}
       ref={ref}
-      {...props} />)
+      {...props}
+    />
   );
-})
+});
 Button.displayName = "Button"
 
 export { Button, buttonVariants }
