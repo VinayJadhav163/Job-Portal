@@ -8,18 +8,26 @@ const Toaster = ({ ...props }) => {
   return (
     <Sonner
       theme={theme}
-      // ✅ Proper centered position across all screen sizes, especially mobile
-      className="toaster z-50 group fixed bottom-4 left-1/2 -translate-x-1/2 w-full max-w-[90%] px-4 sm:max-w-lg md:max-w-xl lg:max-w-2xl"
+      // ✅ Inline style guarantees it works across devices
+      style={{
+        position: "fixed",
+        bottom: "1rem",
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: "100%",
+        maxWidth: "90%",
+        paddingLeft: "1rem",
+        paddingRight: "1rem",
+        zIndex: 9999,
+      }}
       toastOptions={{
         classNames: {
           toast:
-            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg " +
+            "bg-background text-foreground border border-border shadow-lg " +
             "w-full sm:w-auto max-w-full sm:max-w-md md:max-w-lg lg:max-w-xl px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base",
-          description: "group-[.toast]:text-muted-foreground",
-          actionButton:
-            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
-          cancelButton:
-            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
+          description: "text-muted-foreground",
+          actionButton: "bg-primary text-primary-foreground",
+          cancelButton: "bg-muted text-muted-foreground",
         },
       }}
       {...props}
