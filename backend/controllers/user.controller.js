@@ -120,7 +120,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
     try {
         return res.status(200)
-            .cookie("token", "", { httpOnly: true, secure: true, sameSite: "None", expires: new Date(0) })
+            .cookie("token", "", { httpOnly: true, secure: true, sameSite: "None",  maxAge: 0 })
             .json({
                 message: "Logged out successfully.",
                 success: true
