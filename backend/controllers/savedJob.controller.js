@@ -1,6 +1,5 @@
-import SavedJob from '../models/SavedJob.model.js'; // Your SavedJob mongoose model
-import Job from '../models/job.model.js'; // Your Job mongoose model
-
+import { Job } from '../models/job.model.js'; // ✅ Named export
+import SavedJob from '../models/SavedJob.model.js'; // ✅ Default export
 // Save a job for the logged-in user
 export const saveJobForUser = async (req, res) => {
   try {
