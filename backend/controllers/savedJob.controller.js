@@ -46,3 +46,21 @@ export const getSavedJobsForUser = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+// Unsave a job for the logged-in user
+export const unsaveJobForUser = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const jobId = req.params.jobId;
+
+    const deleted = await SavedJob.findOneAndDelete({ user: userId, job: jobId });
+    if (!deleted) {
+      return res.status(404).json({ message: 'Saved job not found' });
+    }
+
+    res.status(200).json({ message: 'Job unsaved successfully' });
+  } catch (error) {
+    console.error('Error unsaving job:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
