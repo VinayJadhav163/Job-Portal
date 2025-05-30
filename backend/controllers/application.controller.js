@@ -3,7 +3,7 @@ import { Job } from "../models/job.model.js";
 
 export const applyJob = async (req, res) => {
     try {
-        const userId = req.id;
+        const userId = req.user._id;
         const jobId = req.params.id;
         if (!jobId) {
             return res.status(400).json({
@@ -47,7 +47,7 @@ export const applyJob = async (req, res) => {
 };
 export const getAppliedJobs = async (req,res) => {
     try {
-        const userId = req.id;
+        const userId = req.user._id;
         const application = await Application.find({applicant:userId}).sort({createdAt:-1}).populate({
             path:'job',
             options:{sort:{createdAt:-1}},

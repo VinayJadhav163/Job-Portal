@@ -22,8 +22,17 @@ const isAuthenticated = async (req, res, next) => {
 
     const decode = jwt.verify(token, process.env.SECRET_KEY);
 
-    // Set req.user with _id from token payload
-    req.user = { _id: decode.userId };
+    // Handle both userId and adminId in token
+    if (decode.userId) {
+      req.user = { _id: decode.userId, role: "user" };
+    } else if (decode.adminId) {
+      req.user = { _id: decode.adminId, role: "admin" };
+    } else {
+      return res.status(401).json({
+        message: "Invalid token payload",
+        success: false,
+      });
+    }
 
     next();
   } catch (error) {
