@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setAllJobs } from "@/redux/jobSlice"; // ✅ Adjust import path
 
 const useGetAllJobs = () => {
-  const [jobs, setJobs] = useState([]);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const fetchAllJobs = async () => {
@@ -21,22 +23,21 @@ const useGetAllJobs = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        withCredentials: true // ✅ Ensures cookies/sessions are sent
+        withCredentials: true
       });
 
       if (res.data.success) {
-        setJobs(res.data.jobs);
+        dispatch(setAllJobs(res.data.jobs)); // ✅ Important
       } else {
-        toast.error("Something went wrong while fetching jobs.");
+        toast.error("Failed to fetch jobs.");
       }
     } catch (error) {
       console.error("fetchAllJobs error:", error);
-
-      if (error.response && error.response.status === 401) {
-        toast.error("Unauthorized! Please log in again.");
+      if (error.response?.status === 401) {
+        toast.error("Unauthorized. Please log in.");
         navigate("/login");
       } else {
-        toast.error("Error fetching jobs. Try again later.");
+        toast.error("Something went wrong. Try again later.");
       }
     }
   };
@@ -44,8 +45,6 @@ const useGetAllJobs = () => {
   useEffect(() => {
     fetchAllJobs();
   }, []);
-
-  return jobs;
 };
 
 export default useGetAllJobs;
