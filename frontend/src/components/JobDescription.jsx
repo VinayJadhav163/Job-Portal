@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from '@/utils/constant'
 import { setSingleJob } from '@/redux/jobSlice'
@@ -18,15 +18,16 @@ const JobDescription = () => {
   const params = useParams()
   const jobId = params.id
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const applyJobHandler = async () => {
     try {
       const res = await axios.get(`${APPLICATION_API_END_POINT}/apply/${jobId}`, { withCredentials: true })
 
       if (res.data.success) {
-        setIsApplied(true) // Update the local state
+        setIsApplied(true)
         const updatedSingleJob = { ...singleJob, applications: [...singleJob.applications, { applicant: user?._id }] }
-        dispatch(setSingleJob(updatedSingleJob)) // real-time UI update
+        dispatch(setSingleJob(updatedSingleJob))
         toast.success(res.data.message)
       }
     } catch (error) {
@@ -41,7 +42,7 @@ const JobDescription = () => {
         const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, { withCredentials: true })
         if (res.data.success) {
           dispatch(setSingleJob(res.data.job))
-          setIsApplied(res.data.job.applications.some(application => application.applicant === user?._id)) // sync state
+          setIsApplied(res.data.job.applications.some(application => application.applicant === user?._id))
         }
       } catch (error) {
         console.log(error)
@@ -52,6 +53,14 @@ const JobDescription = () => {
 
   return (
     <div className="max-w-7xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-6 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md transition duration-200"
+      >
+        ← Back
+      </button>
+
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="font-bold text-xl sm:text-2xl">{singleJob?.title}</h1>
@@ -82,24 +91,19 @@ const JobDescription = () => {
 
       <div className="my-4 space-y-2">
         <h1 className="font-bold my-1">
-          Role:{' '}
-          <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.title}</span>
+          Role: <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.title}</span>
         </h1>
         <h1 className="font-bold my-1">
-          Location:{' '}
-          <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.location}</span>
+          Location: <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.location}</span>
         </h1>
         <h1 className="font-bold my-1">
-          Description:{' '}
-          <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.description}</span>
+          Description: <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.description}</span>
         </h1>
         <h1 className="font-bold my-1">
-          Experience:{' '}
-          <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.experience} yrs</span>
+          Experience: <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.experience} yrs</span>
         </h1>
         <h1 className="font-bold my-1">
-          Salary:{' '}
-          <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.salary}LPA</span>
+          Salary: <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.salary}LPA</span>
         </h1>
         <h1 className="font-bold my-1">
           Total Applicants:{' '}

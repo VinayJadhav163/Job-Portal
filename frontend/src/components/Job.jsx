@@ -4,6 +4,10 @@ import { Bookmark } from 'lucide-react'
 import { Avatar, AvatarImage } from './ui/avatar'
 import { Badge } from './ui/badge'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { toast } from 'sonner'  // Or any toast notification lib you prefer
+
+const SAVE_JOB_API_END_POINT = import.meta.env.VITE_BACKEND_URL + '/api/v1/job/save';
 
 const Job = ({ job }) => {
     const navigate = useNavigate();
@@ -14,6 +18,23 @@ const Job = ({ job }) => {
         const timeDifference = currentTime - createdAt;
         return Math.floor(timeDifference / (1000 * 24 * 60 * 60));
     }
+
+    const saveForLaterHandler = async () => {
+        try {
+            const response = await axios.post(
+                SAVE_JOB_API_END_POINT,
+                { jobId: job._id },
+                { withCredentials: true } // if using cookies/auth
+            );
+            if (response.data.success) {
+                toast.success('Job saved for later!');
+            } else {
+                toast.error('Failed to save job');
+            }
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Error saving job');
+        }
+    };
 
     return (
         <div className='p-5 rounded-md shadow-xl bg-white border border-gray-100 max-w-full sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto'>
@@ -53,7 +74,10 @@ const Job = ({ job }) => {
                 <Button onClick={() => navigate(`/description/${job?._id}`)} variant="outline" className="w-full sm:w-auto">
                     Details
                 </Button>
-                <Button className="w-full sm:w-auto bg-[#7209b7] hover:bg-[#5f32ad] transition-colors">
+                <Button
+                    onClick={saveForLaterHandler}
+                    className="w-full sm:w-auto bg-[#7209b7] hover:bg-[#5f32ad] transition-colors"
+                >
                     Save For Later
                 </Button>
             </div>

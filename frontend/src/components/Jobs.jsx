@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
 
 const Jobs = () => {
-  const { allJobs, searchedQuery } = useSelector(store => store.job)
-  const [filterJobs, setFilterJobs] = useState(allJobs)
+  const { allJobs, searchedQuery, isLoading } = useSelector(store => store.job)
+  const [filterJobs, setFilterJobs] = useState([])
 
   useEffect(() => {
     if (searchedQuery) {
@@ -15,7 +15,7 @@ const Jobs = () => {
         return (
           job.title.toLowerCase().includes(searchedQuery.toLowerCase()) ||
           job.description.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-          job.location.toLowerCase().includes(searchedQuery.toLowerCase())
+          (job.location || '').toLowerCase().includes(searchedQuery.toLowerCase())
         )
       })
       setFilterJobs(filteredJobs)
@@ -34,7 +34,9 @@ const Jobs = () => {
           </div>
 
           <div className="flex-1 h-[80vh] md:h-[88vh] overflow-y-auto pb-5">
-            {filterJobs.length === 0 ? (
+            {isLoading ? (
+              <span className="block text-center mt-10 text-gray-500">Loading jobs...</span>
+            ) : filterJobs.length === 0 ? (
               <span className="block text-center mt-10 text-gray-500">Job not found</span>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
