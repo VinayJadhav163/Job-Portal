@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'sonner'  // Or any toast notification lib you prefer
 
-const SAVE_JOB_API_END_POINT = import.meta.env.VITE_BACKEND_URL + '/api/v1/job/save';
+const SAVE_JOB_API_END_POINT = import.meta.env.VITE_BACKEND_URL + '/api/v1/savedjob/save/';
 
 const Job = ({ job }) => {
     const navigate = useNavigate();
@@ -22,14 +22,14 @@ const Job = ({ job }) => {
     const saveForLaterHandler = async () => {
         try {
             const response = await axios.post(
-                SAVE_JOB_API_END_POINT,
-                { jobId: job._id },
-                { withCredentials: true } // if using cookies/auth
+                `${SAVE_JOB_API_END_POINT}${job._id}`,
+                {},
+                { withCredentials: true }
             );
             if (response.data.success) {
                 toast.success('Job saved for later!');
             } else {
-                toast.error('Failed to save job');
+                toast.error(response.data.message || 'Failed to save job');
             }
         } catch (error) {
             toast.error(error.response?.data?.message || 'Error saving job');
@@ -67,7 +67,7 @@ const Job = ({ job }) => {
             <div className='flex flex-wrap items-center gap-2 mt-4'>
                 <Badge className={'text-blue-700 font-bold'} variant="ghost">{job?.position} Positions</Badge>
                 <Badge className={'text-[#F83002] font-bold'} variant="ghost">{job?.jobType}</Badge>
-                <Badge className={'text-[#7209b7] font-bold'} variant="ghost">{job?.salary}LPA</Badge>
+                <Badge className={'text-[#7209b7] font-bold'} variant="ghost">{job?.salary} LPA</Badge>
             </div>
 
             <div className='flex flex-col sm:flex-row items-center gap-3 mt-4'>
