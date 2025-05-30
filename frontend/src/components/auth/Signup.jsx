@@ -54,7 +54,7 @@ const Signup = () => {
 
     try {
       dispatch(setLoading(true));
-      const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
+      const res = await axios.post($,{USER_API_END_POINT}/register, formData, {
         headers: { 'Content-Type': "multipart/form-data" },
         withCredentials: true
       });
@@ -80,8 +80,8 @@ const Signup = () => {
     <div>
       <Navbar />
       <div className='flex items-center justify-center px-4'>
-        <form 
-          onSubmit={submitHandler} 
+        <form
+          onSubmit={submitHandler}
           className='w-full sm:w-3/4 md:w-2/3 lg:w-1/2 border border-gray-200 rounded-md p-4 sm:p-6 my-10 shadow-md'
         >
           <h1 className='font-bold text-2xl mb-5 text-center'>Sign Up</h1>
@@ -114,7 +114,7 @@ const Signup = () => {
             <Label htmlFor="phoneNumber">Phone Number</Label>
             <Input
               id="phoneNumber"
-              type="text"
+              type="tel"
               name="phoneNumber"
               value={input.phoneNumber}
               onChange={changeEventHandler}
@@ -137,26 +137,26 @@ const Signup = () => {
           <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0 mb-4'>
             <RadioGroup className="flex flex-col sm:flex-row gap-4">
               <div className="flex items-center space-x-2">
-                <Input
+                <input
                   id="student"
                   type="radio"
                   name="role"
                   value="student"
                   checked={input.role === 'student'}
                   onChange={changeEventHandler}
-                  className="cursor-pointer"
+                  className="h-4 w-4 cursor-pointer"
                 />
                 <Label htmlFor="student">Student</Label>
               </div>
               <div className="flex items-center space-x-2">
-                <Input
+                <input
                   id="recruiter"
                   type="radio"
                   name="role"
                   value="recruiter"
                   checked={input.role === 'recruiter'}
                   onChange={changeEventHandler}
-                  className="cursor-pointer"
+                  className="h-4 w-4 cursor-pointer"
                 />
                 <Label htmlFor="recruiter">Recruiter</Label>
               </div>
