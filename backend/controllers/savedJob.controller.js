@@ -1,4 +1,4 @@
-import SavedJob from '../models/SavedJob.js'; // Your SavedJob mongoose model
+import SavedJob from '../models/SavedJob.model.js'; // Your SavedJob mongoose model
 import Job from '../models/Job.js'; // Your Job mongoose model
 
 // Save a job for the logged-in user
