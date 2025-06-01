@@ -4,54 +4,64 @@ import { useParams, useNavigate } from 'react-router-dom';
 const EditJob = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [jobData, setJobData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     location: '',
     salary: '',
+    requirements: '',
+    jobType: '',
+    experience: '',
+    position: '',
+    companyId: '',
   });
 
-  // Fetch job by ID
-  useEffect(() => {
-    const fetchJob = async () => {
-      try {
-        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/jobs/${id}`);
-        const data = await res.json();
-        setJobData(data);
+  const fetchJob = async () => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/jobs/${id}`);
+      const data = await res.json();
+      if (data.success) {
+        const job = data.job;
         setFormData({
-          title: data.title || '',
-          description: data.description || '',
-          location: data.location || '',
-          salary: data.salary || '',
+          title: job.title || '',
+          description: job.description || '',
+          location: job.location || '',
+          salary: job.salary || '',
+          requirements: job.requirements ? job.requirements.join(',') : '',
+          jobType: job.jobType || '',
+          experience: job.experienceLevel || '',
+          position: job.position || '',
+          companyId: job.company?._id || '', // assuming company is populated
         });
-        setLoading(false);
-      } catch (err) {
-        console.error('Failed to load job', err);
-        setLoading(false);
+      } else {
+        alert('Failed to fetch job details');
       }
-    };
+      setLoading(false);
+    } catch (err) {
+      console.error('Failed to load job', err);
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchJob();
   }, [id]);
 
   if (loading) return <p className="p-4">Loading...</p>;
 
-  // Handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // <-- Updated PUT request URL to include /update/ prefix
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/jobs/update/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/jobs/update/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
+        credentials: 'include',
       });
       if (res.ok) {
         alert('Job updated successfully!');
@@ -104,7 +114,70 @@ const EditJob = () => {
           placeholder="Salary"
           className="w-full border p-2 rounded"
         />
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+
+        <input
+          type="text"
+          name="requirements"
+          value={formData.requirements}
+          onChange={handleChange}
+          placeholder="Requirements (comma separated)"
+          className="w-full border p-2 rounded"
+          required
+        />
+
+        <select
+          name="jobType"
+          value={formData.jobType}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          required
+        >
+          <option value="">Select Job Type</option>
+          <option value="Full-time">Full-time</option>
+          <option value="Part-time">Part-time</option>
+          <option value="Contract">Contract</option>
+          <option value="Internship">Internship</option>
+          {/* Add more options as needed */}
+        </select>
+
+        <select
+          name="experience"
+          value={formData.experience}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          required
+        >
+          <option value="">Select Experience Level</option>
+          <option value="Entry">Entry</option>
+          <option value="Mid">Mid</option>
+          <option value="Senior">Senior</option>
+          {/* Add more options if you want */}
+        </select>
+
+        <input
+          type="text"
+          name="position"
+          value={formData.position}
+          onChange={handleChange}
+          placeholder="Position"
+          className="w-full border p-2 rounded"
+          required
+        />
+
+        <input
+          type="text"
+          name="companyId"
+          value={formData.companyId}
+          onChange={handleChange}
+          placeholder="Company ID"
+          className="w-full border p-2 rounded"
+          required
+        />
+
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
           Update Job
         </button>
       </form>
