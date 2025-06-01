@@ -62,17 +62,25 @@ const JobDescription = () => {
   useEffect(() => {
     const fetchSingleJob = async () => {
       try {
-        const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, { withCredentials: true })
+        // Try fetching without credentials so public users can see job details
+        const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`) 
+        
         if (res.data.success) {
           dispatch(setSingleJob(res.data.job))
           setIsApplied(res.data.job.applications.some(application => application.applicant === user?._id))
         }
       } catch (error) {
         console.log(error)
+        if (error.response?.status === 401) {
+          toast.error('Please login to view job details')
+          navigate('/login')
+        } else {
+          toast.error('Failed to load job details')
+        }
       }
     }
     fetchSingleJob()
-  }, [jobId, dispatch, user?._id])
+  }, [jobId, dispatch, user?._id, navigate])
 
   return (
     <div className="max-w-7xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
