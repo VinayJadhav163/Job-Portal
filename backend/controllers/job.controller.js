@@ -81,7 +81,7 @@ export const getJobById = async (req, res) => {
 // admin kitne job create kra hai abhi tk
 export const getAdminJobs = async (req, res) => {
     try {
-        const adminId = req.id;
+        const adminId = req.user._id; //fixed
         const jobs = await Job.find({ created_by: adminId }).populate({
             path:'company',
             createdAt:-1
