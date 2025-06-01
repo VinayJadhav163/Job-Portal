@@ -62,9 +62,9 @@ const JobDescription = () => {
   useEffect(() => {
     const fetchSingleJob = async () => {
       try {
-        // Try fetching without credentials so public users can see job details
-        const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`) 
-        
+        // Send credentials for auth session
+        const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, { withCredentials: true })
+
         if (res.data.success) {
           dispatch(setSingleJob(res.data.job))
           setIsApplied(res.data.job.applications.some(application => application.applicant === user?._id))
