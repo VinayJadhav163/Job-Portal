@@ -47,7 +47,8 @@ const EditJob = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/jobs/${id}`, {
+      // <-- Updated PUT request URL to include /update/ prefix
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/jobs/update/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
