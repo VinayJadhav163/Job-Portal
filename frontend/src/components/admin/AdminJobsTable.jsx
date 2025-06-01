@@ -21,9 +21,10 @@ const AdminJobsTable = () => {
   useEffect(() => {
     const filteredJobs = allAdminJobs.filter((job) => {
       if (!searchJobByText) return true;
+      const searchText = searchJobByText.toLowerCase();
       return (
-        job?.title?.toLowerCase().includes(searchJobByText.toLowerCase()) ||
-        job?.company?.name?.toLowerCase().includes(searchJobByText.toLowerCase())
+        job?.title?.toLowerCase().includes(searchText) ||
+        (job?.company?.name ?? '').toLowerCase().includes(searchText)
       );
     });
     setFilterJobs(filteredJobs);
@@ -44,9 +45,9 @@ const AdminJobsTable = () => {
         <TableBody>
           {filterJobs?.map((job) => (
             <TableRow key={job._id}>
-              <TableCell>{job?.company?.name}</TableCell>
-              <TableCell>{job?.title}</TableCell>
-              <TableCell>{job?.createdAt?.split("T")[0]}</TableCell>
+              <TableCell>{job?.company?.name ?? 'N/A'}</TableCell>
+              <TableCell>{job?.title ?? 'N/A'}</TableCell>
+              <TableCell>{job?.createdAt?.split("T")[0] ?? 'N/A'}</TableCell>
               <TableCell className="text-right">
                 <Popover>
                   <PopoverTrigger className="cursor-pointer">
