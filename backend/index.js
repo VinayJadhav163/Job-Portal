@@ -1,3 +1,4 @@
+// index.js
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -8,7 +9,7 @@ import userRoute from "./routes/user.route.js";
 import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
-import savedJobRoute from "./routes/savedJob.route.js"; // ✅ Added this line
+import savedJobRoute from "./routes/savedJob.route.js";
 
 dotenv.config();
 
@@ -19,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// ✅ Updated CORS configuration
+// CORS setup
 const allowedOrigins = [
     "https://job-portal-rosy-chi.vercel.app"
 ];
@@ -39,14 +40,13 @@ app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 3000;
 
-// Routes
-app.use("/api/v1/user", userRoute);
-app.use("/api/v1/company", companyRoute);
-app.use("/api/v1/job", jobRoute);
-app.use("/api/v1/application", applicationRoute);
-app.use("/api/v1/savedjob", savedJobRoute); // ✅ Added this line
+// ✅ Use RESTful plural route names
+app.use("/api/v1/users", userRoute);
+app.use("/api/v1/companies", companyRoute);
+app.use("/api/v1/jobs", jobRoute); // ✅ updated from /job to /jobs
+app.use("/api/v1/applications", applicationRoute);
+app.use("/api/v1/savedjobs", savedJobRoute);
 
-// Server
 app.listen(PORT, () => {
     connectDB();
     console.log(`🚀 Server running at port ${PORT}`);
