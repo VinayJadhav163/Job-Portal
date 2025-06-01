@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createHashRouter, RouterProvider } from 'react-router-dom';
+import EditJob from './components/admin/EditJob';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import Home from './components/Home';
@@ -15,6 +16,7 @@ import PostJob from './components/admin/PostJob';
 import Applicants from './components/admin/Applicants';
 import ProtectedRoute from './components/admin/ProtectedRoute';
 
+
 const appRouter = createHashRouter([
   { path: '/', element: <Home /> },
   { path: '/login', element: <Login /> },
@@ -29,6 +31,7 @@ const appRouter = createHashRouter([
   { path: "/admin/companies/:id", element: <ProtectedRoute><CompanySetup /></ProtectedRoute> },
   { path: "/admin/jobs", element: <ProtectedRoute><AdminJobs /></ProtectedRoute> },
   { path: "/admin/jobs/create", element: <ProtectedRoute><PostJob /></ProtectedRoute> },
+   { path: "/admin/jobs/:id/edit", element: <ProtectedRoute><EditJob /></ProtectedRoute> }, // ✅ Newly added
   { path: "/admin/jobs/:id/applicants", element: <ProtectedRoute><Applicants /></ProtectedRoute> },
 ]);
 
