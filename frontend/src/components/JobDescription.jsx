@@ -11,9 +11,12 @@ import { toast } from 'sonner'
 const JobDescription = () => {
   const { singleJob } = useSelector(store => store.job)
   const { user } = useSelector(store => store.auth)
+
   const isIntiallyApplied =
     singleJob?.applications?.some(application => application.applicant === user?._id) || false
+
   const [isApplied, setIsApplied] = useState(isIntiallyApplied)
+  const [isSaved, setIsSaved] = useState(false)
 
   const params = useParams()
   const jobId = params.id
@@ -26,13 +29,33 @@ const JobDescription = () => {
 
       if (res.data.success) {
         setIsApplied(true)
-        const updatedSingleJob = { ...singleJob, applications: [...singleJob.applications, { applicant: user?._id }] }
+        const updatedSingleJob = {
+          ...singleJob,
+          applications: [...singleJob.applications, { applicant: user?._id }],
+        }
         dispatch(setSingleJob(updatedSingleJob))
         toast.success(res.data.message)
       }
     } catch (error) {
       console.log(error)
-      toast.error(error.response.data.message)
+      toast.error(error?.response?.data?.message || 'Failed to apply for job')
+    }
+  }
+
+  const saveJobHandler = async () => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/savedjobs/save/${jobId}`,
+        {},
+        { withCredentials: true }
+      )
+      if (res.data.success) {
+        setIsSaved(true)
+        toast.success(res.data.message || 'Job saved successfully!')
+      }
+    } catch (error) {
+      console.error(error)
+      toast.error(error?.response?.data?.message || 'Failed to save job')
     }
   }
 
@@ -72,19 +95,30 @@ const JobDescription = () => {
               {singleJob?.jobType}
             </Badge>
             <Badge className="text-[#7209b7] font-bold" variant="ghost">
-              {singleJob?.salary}LPA
+              {singleJob?.salary} LPA
             </Badge>
           </div>
         </div>
-        <Button
-          onClick={isApplied ? null : applyJobHandler}
-          disabled={isApplied}
-          className={`rounded-lg w-full md:w-auto ${
-            isApplied ? 'bg-gray-600 cursor-not-allowed' : 'bg-[#7209b7] hover:bg-[#5f32ad]'
-          }`}
-        >
-          {isApplied ? 'Already Applied' : 'Apply Now'}
-        </Button>
+        <div className="flex gap-2 w-full md:w-auto">
+          <Button
+            onClick={isApplied ? null : applyJobHandler}
+            disabled={isApplied}
+            className={`rounded-lg w-full md:w-auto ${
+              isApplied ? 'bg-gray-600 cursor-not-allowed' : 'bg-[#7209b7] hover:bg-[#5f32ad]'
+            }`}
+          >
+            {isApplied ? 'Already Applied' : 'Apply Now'}
+          </Button>
+          <Button
+            onClick={saveJobHandler}
+            disabled={isSaved}
+            className={`rounded-lg w-full md:w-auto ${
+              isSaved ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'
+            }`}
+          >
+            {isSaved ? 'Saved' : 'Save Job'}
+          </Button>
+        </div>
       </div>
 
       <h1 className="border-b-2 border-b-gray-300 font-medium py-4 mt-8">Job Description</h1>
@@ -97,21 +131,28 @@ const JobDescription = () => {
           Location: <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.location}</span>
         </h1>
         <h1 className="font-bold my-1">
-          Description: <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.description}</span>
+          Description:{' '}
+          <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.description}</span>
         </h1>
         <h1 className="font-bold my-1">
-          Experience: <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.experience} yrs</span>
+          Experience:{' '}
+          <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.experience} yrs</span>
         </h1>
         <h1 className="font-bold my-1">
-          Salary: <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.salary}LPA</span>
+          Salary:{' '}
+          <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.salary} LPA</span>
         </h1>
         <h1 className="font-bold my-1">
           Total Applicants:{' '}
-          <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.applications?.length}</span>
+          <span className="pl-4 font-normal text-gray-800 block sm:inline">
+            {singleJob?.applications?.length}
+          </span>
         </h1>
         <h1 className="font-bold my-1">
           Posted Date:{' '}
-          <span className="pl-4 font-normal text-gray-800 block sm:inline">{singleJob?.createdAt.split('T')[0]}</span>
+          <span className="pl-4 font-normal text-gray-800 block sm:inline">
+            {singleJob?.createdAt?.split('T')[0]}
+          </span>
         </h1>
       </div>
     </div>
