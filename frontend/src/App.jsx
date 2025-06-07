@@ -1,5 +1,11 @@
 import { useEffect } from "react";
 import { createHashRouter, RouterProvider } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { setUser } from "./redux/authSlice";
+import { USER_API_END_POINT } from "./utils/constant";
+
+// Components
 import EditJob from './components/admin/EditJob';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
@@ -16,7 +22,6 @@ import PostJob from './components/admin/PostJob';
 import Applicants from './components/admin/Applicants';
 import ProtectedRoute from './components/admin/ProtectedRoute';
 
-
 const appRouter = createHashRouter([
   { path: '/', element: <Home /> },
   { path: '/login', element: <Login /> },
@@ -31,16 +36,27 @@ const appRouter = createHashRouter([
   { path: "/admin/companies/:id", element: <ProtectedRoute><CompanySetup /></ProtectedRoute> },
   { path: "/admin/jobs", element: <ProtectedRoute><AdminJobs /></ProtectedRoute> },
   { path: "/admin/jobs/create", element: <ProtectedRoute><PostJob /></ProtectedRoute> },
-   { path: "/admin/jobs/:id/edit", element: <ProtectedRoute><EditJob /></ProtectedRoute> }, // ✅ Newly added
+  { path: "/admin/jobs/:id/edit", element: <ProtectedRoute><EditJob /></ProtectedRoute> },
   { path: "/admin/jobs/:id/applicants", element: <ProtectedRoute><Applicants /></ProtectedRoute> },
 ]);
 
 function App() {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-     const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    console.log("✅ VITE_BACKEND_URL:", backendUrl);
-  },
-  []);
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(`${USER_API_END_POINT}/me`, {
+          withCredentials: true,
+        });
+        dispatch(setUser(res.data.user));
+      } catch (err) {
+        dispatch(setUser(null));
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   return (
     <div>
