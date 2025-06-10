@@ -24,7 +24,8 @@ app.use(cookieParser());
 const allowedOrigins = [
     "http://localhost:5173",
     "https://job-portal-rosy-chi.vercel.app",
-    "https://job-portal-mmfgdarad-vinay-jadhavs-projects-19d2dc2f.vercel.app"
+    "https://job-portal-mmfgdarad-vinay-jadhavs-projects-19d2dc2f.vercel.app",
+    "https://job-portal-git-main-vinay-jadhavs-projects-19d2dc2f.vercel.app",
 ]; 
 
 const corsOptions = {
