@@ -24,17 +24,18 @@ app.use(cookieParser());
 const allowedOrigins = [
     "http://localhost:5173",
     "https://job-portal-rosy-chi.vercel.app"
-];
+]; 
 
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
+            console.log("❌ Blocked origin:", origin); 
             callback(new Error("Not allowed by CORS"));
         }
     },
-    credentials: true
+    credentials: true,
 };
 
 app.use(cors(corsOptions));
