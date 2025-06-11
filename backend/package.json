@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "postbuild": "cd ../frontend && npm install && npm run build"
+    "postbuild": "node build-frontend.js"
   },
   "author": "",
   "license": "ISC",
