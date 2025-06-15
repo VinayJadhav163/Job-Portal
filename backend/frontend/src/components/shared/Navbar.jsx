@@ -5,7 +5,7 @@ import { Avatar, AvatarImage } from '../ui/avatar';
 import { LogOut, Menu, User2, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from '../axios'; // Adjust the import path as necessary
+import axios from 'axios'; // Adjust the import path as necessary
 import { USER_API_END_POINT } from '@/utils/constant';
 import { setUser } from '@/redux/authSlice';
 import { toast } from 'sonner';
