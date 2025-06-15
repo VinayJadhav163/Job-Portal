@@ -5,7 +5,7 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { useSelector } from 'react-redux'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
-import axios from 'axios'
+import axios from '../axios' // Adjust the import path as necessary
 import { JOB_API_END_POINT } from '@/utils/constant'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'

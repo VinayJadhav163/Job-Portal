@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from '../axios' // Adjust the import path as necessary
 import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from '@/utils/constant'
 import { setSingleJob } from '@/redux/jobSlice'
 import { useDispatch, useSelector } from 'react-redux'

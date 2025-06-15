@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import axios from "axios";
+import axios from "../axios"; // ✅ Adjust import path
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";

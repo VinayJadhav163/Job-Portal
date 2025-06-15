@@ -4,7 +4,7 @@ import { Bookmark } from 'lucide-react'
 import { Avatar, AvatarImage } from './ui/avatar'
 import { Badge } from './ui/badge'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from '../axios' // Adjust the import path as necessary
 import { toast } from 'sonner'  // Or any toast notification lib you prefer
 
 const SAVE_JOB_API_END_POINT = import.meta.env.VITE_BACKEND_URL + '/api/v1/savedjob/save/';
