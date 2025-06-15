@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { setUser } from "./redux/authSlice";
+import { setUser, setLoading } from "./redux/authSlice";
 import { USER_API_END_POINT } from "./utils/constant";
 
 // Components
@@ -42,6 +42,7 @@ const appRouter = createHashRouter([
 
 function App() {
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading); // ⬅️ Track loading state
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -52,17 +53,24 @@ function App() {
         dispatch(setUser(res.data.user));
       } catch (err) {
         dispatch(setUser(null));
+      } finally {
+        dispatch(setLoading(false)); // ⬅️ End loading state here
       }
     };
 
     fetchUser();
   }, []);
 
-  return (
-    <div>
-      <RouterProvider router={appRouter} />
-    </div>
-  );
+  // ⏳ Show a loading screen while checking user session
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen text-lg">
+        Checking session...
+      </div>
+    );
+  }
+
+  return <RouterProvider router={appRouter} />;
 }
 
 export default App;
