@@ -27,7 +27,7 @@ app.use(cookieParser());
 // ✅ Simplified CORS setup for same-origin deployment
 app.use(
   cors({
-    origin: true,  // Allow any origin (safe if frontend is served by same Express server)
+    origin: "https://job-portal-vj-1cbe.onrender.com",  // Allow any origin (safe if frontend is served by same Express server)
     credentials: true,     // Needed for cookies/session auth
   })
 );
