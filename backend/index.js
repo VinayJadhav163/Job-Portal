@@ -27,11 +27,7 @@ app.use(cookieParser());
 // ✅ Simplified CORS setup for same-origin deployment
 app.use(
   cors({
-    origin: [
-      "*",
-      
-    ],
-    // Allow any origin (safe if frontend is served by same Express server)
+    origin: true,  // Allow any origin (safe if frontend is served by same Express server)
     credentials: true,     // Needed for cookies/session auth
   })
 );
