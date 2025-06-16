@@ -172,6 +172,7 @@ export const getCurrentUser = async (req, res) => {
                 fullname: user.fullname,
                 email: user.email,
                 phoneNumber: user.phoneNumber,
+            
                 role: user.role,
                 profile: user.profile
             },

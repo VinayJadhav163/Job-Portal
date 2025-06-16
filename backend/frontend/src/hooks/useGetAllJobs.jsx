@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import axios from "../axios"; // ✅ Adjust import path
+import axios from "../axios"; // ✅ Your configured axios instance
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setAllJobs } from "@/redux/jobSlice"; // ✅ Adjust import path
+import { setAllJobs } from "@/redux/jobSlice";
 
 const useGetAllJobs = () => {
   const dispatch = useDispatch();
@@ -11,30 +11,18 @@ const useGetAllJobs = () => {
 
   const fetchAllJobs = async () => {
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        toast.error("No token found. Please log in.");
-        navigate("/login");
-        return;
-      }
-
-      const res = await axios.get("https://job-portal-x8r2.onrender.com/api/v1/jobs/get", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true
-      });
+      // ✅ Do not check localStorage for token!
+      const res = await axios.get("/jobs/get"); // Axios already has baseURL + withCredentials
 
       if (res.data.success) {
-        dispatch(setAllJobs(res.data.jobs)); // ✅ Important
+        dispatch(setAllJobs(res.data.jobs));
       } else {
         toast.error("Failed to fetch jobs.");
       }
     } catch (error) {
       console.error("fetchAllJobs error:", error);
       if (error.response?.status === 401) {
-        toast.error("Unauthorized. Please log in.");
+        toast.error("Session expired. Please log in again.");
         navigate("/login");
       } else {
         toast.error("Something went wrong. Try again later.");
