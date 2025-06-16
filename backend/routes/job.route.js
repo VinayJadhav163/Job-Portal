@@ -16,7 +16,7 @@ const router = express.Router();
 
 // ✅ Job routes
 router.post("/post", isAuthenticated, postJob);
-router.get("/get", isAuthenticated, getAllJobs);
+router.get("/get", getAllJobs);
 router.get("/getadminjobs", isAuthenticated, getAdminJobs);
 router.get("/get/:id", isAuthenticated, getJobById);
 router.put("/update/:id", isAuthenticated, updateJob); // ✅ Added update job route
