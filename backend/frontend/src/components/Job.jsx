@@ -42,9 +42,7 @@ const Job = ({ job }) => {
                 <p className='text-gray-500'>
                     {daysAgoFunction(job?.createdAt) === 0 ? "Today" : `${daysAgoFunction(job?.createdAt)} days ago`}
                 </p>
-                <Button variant="outline" className="rounded-full" size="icon" aria-label="Bookmark Job">
-                    <Bookmark />
-                </Button>
+                
             </div>
 
             <div className='flex items-center gap-2 my-2'>
