@@ -1,8 +1,9 @@
+<a name="top"></a>
 # JOB-PORTAL
 
 *Empowering Careers, Connecting Talent with Opportunity*
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=vercel)](https://job-portal-rosy-chi.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=render)](https://job-portal-vj-1cbe.onrender.com/)
 
 ---
 
@@ -16,26 +17,28 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&style=flat)
 ![Redux](https://img.shields.io/badge/Redux-764ABC?logo=redux&style=flat)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&style=flat)
-![ESLint](https://img.shields.io/badge/ESLint-4B32C3?logo=eslint&style=flat)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black&style=flat)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white&style=flat)
+
 
 ---
 
 ## 📑 Table of Contents
 
-- [Overview](#-overview)
-- [Getting Started](#-getting-started)
-  - [Prerequisites](#-prerequisites)
-  - [Installation](#-installation)
-  - [Usage](#-usage)
-  - [Testing](#-testing)
-- [Features](#-features)
-- [Project Structure](#-project-structure)
-- [Contribution](#-contribution)
-- [License](#-license)
+- [Overview](#overview)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Testing](#testing)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Contribution](#contribution)
+- [License](#license)
 
 ---
 
-## 🔍 Overview
+## Overview
 
 **Job-Portal** is a comprehensive developer tool designed to streamline job management and enhance user experience in job searching.
 
@@ -52,9 +55,9 @@ This project simplifies the job application process for both users and administr
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### 📦 Prerequisites
+### Prerequisites
 
 This project requires the following dependencies:
 
@@ -63,7 +66,7 @@ This project requires the following dependencies:
 
 ---
 
-### 🛠️ Installation
+### Installation
 
 Build Job-Portal from the source and install dependencies:
 
@@ -71,23 +74,33 @@ Build Job-Portal from the source and install dependencies:
 
 ```bash
 git clone https://github.com/VinayJadhav613/Job-Portal
+```
 
-Navigate to the project directory:
+2. **Navigate to the project directory**:
+```bash
 cd Job-Portal
+```
 
-Install the dependencies:
+4. **Install the dependencies**:
 Using npm:
+```bash
 npm install
+```
+---
 
-▶️ Usage
+### Usage
 Run the project with:
 npm start
 
-🧪 Testing
+---
+
+### Testing
 Job-portal uses the test framework. Run the test suite with:
 npm test
 
-🎯 Features
+---
+
+### Features
 👤 User Authentication with JWT (Login/Register)
 
 🧑‍💼 Role-Based Access (Admin, Company, Candidate)
@@ -108,37 +121,60 @@ npm test
 
 🔐 Secure API with Role Validation
 
+---
 
-📁 Project Structure
+### Project Structure
+```text
 job-portal/
 ├── backend/
 │   ├── controllers/
-│   ├── models/
-│   ├── routes/
+│   ├── frontend/             <-- React frontend inside backend
+│   │   ├── src/
+│   │   │   ├── components/
+│   │   │   ├── pages/
+│   │   │   ├── redux/
+│   │   │   └── App.jsx
+│   │   ├── vite.config.js
 │   ├── middlewares/
-│   └── server.js
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── redux/
-│   │   └── App.jsx
-│   └── vite.config.js
-├── .env
-├── package.json
-└── README.md
+│   ├── models/
+│   ├── node_modules/
+│   ├── routes/
+│   ├── utils/
+│   │   ├── cloudinary.js
+│   │   ├── datauri.js
+│   │   └── db.js
+│   ├── .env
+│   ├── .gitignore
+│   ├── build-frontend.js
+│   ├── index.js
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── render.yaml
+│   └── README.md
+```
+---
 
-🤝 Contribution
+### Contribution
 Contributions are welcome! Here's how you can help:
-Fork the repository.
-Create a new branch: git checkout -b feature-name.
-Commit your changes: git commit -m "Add feature".
-Push to the branch: git push origin feature-name.
-Open a pull request.
+
+1. Fork the repository.
+
+2. Create a new branch: git checkout -b feature-name.
+
+3. Commit your changes: git commit -m "Add feature".
+
+4. Push to the branch: git push origin feature-name.
+
+5. Open a pull request.
+
 Please ensure your code is clean and properly documented.
 
-📜 License
+---
+
+### License
 This project is licensed under the MIT License.
 
-🔙 Return To Top
+---
+
+[🔝 Back to Top](#top)
 
