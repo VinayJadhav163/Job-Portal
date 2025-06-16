@@ -16,7 +16,7 @@ const HeroSection = () => {
     }
 
     return (
-        <div className='text-center px-4 sm:px-6 lg:px-8 py-10'>
+        <div className='text-center px-4 sm:px-6 lg:px-8 py-10'> 
             <div className='flex flex-col gap-5 max-w-4xl mx-auto'>
                 <span className="inline-block bg-gradient-to-r from-pink-500 to-yellow-500 text-white px-4 sm:px-6 py-1 rounded text-sm sm:text-base md:text-lg font-bold">
                     No. 1 Job Hunt Website
