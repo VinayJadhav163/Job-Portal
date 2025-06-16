@@ -61,7 +61,7 @@ function App() {
     fetchUser();
   }, []);
 
-  // ⏳ Show a loading screen while checking user session
+  // ⏳ Show a loading screen while checking user session.
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen text-lg">
