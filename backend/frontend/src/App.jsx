@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createHashRouter, RouterProvider } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "./axios"; // Adjust the import path as necessary
 import { setUser, setLoading } from "./redux/authSlice";
 import { USER_API_END_POINT } from "./utils/constant";
