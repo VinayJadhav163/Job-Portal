@@ -27,19 +27,25 @@ const HeroSection = () => {
                 <p className='text-sm sm:text-base text-gray-600'>
                     Find the perfect job, apply with ease, and kickstart your career today.
                 </p>
-                <div className='flex flex-col sm:flex-row w-full sm:w-[90%] md:w-[75%] lg:w-[60%] xl:w-[50%] mx-auto shadow-lg border border-gray-200 rounded-full overflow-hidden'>
+                <div className='flex w-full sm:w-[90%] md:w-[75%] lg:w-[60%] xl:w-[50%] mx-auto shadow-lg border border-gray-200 rounded-full overflow-hidden'>
                     <input
                         type="text"
                         placeholder='Find your dream jobs'
                         onChange={(e) => setQuery(e.target.value)}
                         className='px-4 py-2 outline-none border-none w-full text-sm sm:text-base'
                     />
-                    <Button onClick={searchJobHandler} className="bg-[#6A38C2] rounded-none sm:rounded-r-full text-white py-2 px-4">
+                    <Button
+                        onClick={searchJobHandler}
+                        className="bg-[#6A38C2] text-white px-4 py-2 rounded-none rounded-r-full"
+                    >
                         <Search className='h-5 w-5' />
                     </Button>
                 </div>
+ 
             </div>
+
         </div>
+        
     )
 }
 
