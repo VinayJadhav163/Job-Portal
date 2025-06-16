@@ -32,6 +32,7 @@
   - [Usage](#usage)
   - [Testing](#testing)
 - [Features](#features)
+- [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Contribution](#contribution)
 - [License](#license)
@@ -124,6 +125,15 @@ npm test
 💾 Saved Jobs Functionality
 
 🔐 Secure API with Role Validation
+
+---
+
+## Tech Stack
+
+- 🌐 Frontend: **ReactJS, Tailwind CSS**
+- ⚙️ Backend: **Node.js, Express.js**
+- 🗃️ Database: **MongoDB**
+- 🔗 Hosting: **Render**
 
 ---
 
