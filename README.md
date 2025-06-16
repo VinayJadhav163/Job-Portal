@@ -90,13 +90,17 @@ npm install
 
 ### Usage
 Run the project with:
+```bash
 npm start
+```
 
 ---
 
 ### Testing
 Job-portal uses the test framework. Run the test suite with:
+```bash
 npm test
+```
 
 ---
 
